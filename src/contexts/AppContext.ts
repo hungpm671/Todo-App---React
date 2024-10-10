@@ -1,4 +1,4 @@
-import { createContext, Dispatch } from "react";
+import { createContext } from "react";
 import { TodoItemObject } from "../component/TodoItem";
 
 export type AppContextObject = {
