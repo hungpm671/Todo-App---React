@@ -1,34 +1,28 @@
-import { TodoItemObject } from "./TodoItem";
+import { useContext } from "react";
+import AppContext from "../contexts/AppContext";
 
-export type FooterProps = {
-  todos: TodoItemObject[];
-  filter: string;
-  selectAllTodos: (deed: string) => void;
-  selectActiveTodos: (deed: string) => void;
-  selectCompletedTodos: (deed: string) => void;
-  clearCompletedTodos: () => void;
-};
+export default function Footer() {
+  const {
+    todos,
+    filter,
+    selectAllTodos,
+    selectActiveTodos,
+    selectCompletedTodos,
+    clearCompletedTodos,
+  } = useContext(AppContext);
 
-export default function Footer({
-  todos,
-  filter,
-  selectAllTodos,
-  selectActiveTodos,
-  selectCompletedTodos,
-  clearCompletedTodos,
-}: FooterProps) {
   return (
     <>
       <footer className="footer">
         <span className="todo-count">
-          <strong>{todos.filter((todo) => todo.completed).length}</strong> item
+          <strong>{todos.filter((todo) => !todo.completed).length}</strong> item
           left
         </span>
         <ul className="filters">
           <li>
             <a
-              className={`${filter === "all" && "selected"}`}
               href="#/"
+              className={`${filter === "all" && "selected"}`}
               onClick={() => selectAllTodos("all")}
             >
               All

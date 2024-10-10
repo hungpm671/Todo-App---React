@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import AppContext from "../contexts/AppContext";
 
 export type TodoItemObject = {
   id: number;
@@ -8,17 +9,11 @@ export type TodoItemObject = {
 
 export type TodoItemProps = {
   todo: TodoItemObject;
-  toggleCompleted: (id: number) => void;
-  deleteTodo: (id: number) => void;
-  editTodo: (id: number, title: string) => void;
 };
 
-export default function TodoItem({
-  todo,
-  toggleCompleted,
-  deleteTodo,
-  editTodo,
-}: TodoItemProps) {
+export default function TodoItem({ todo }: TodoItemProps) {
+  const { toggleCompleted, deleteTodo, editTodo } = useContext(AppContext);
+
   const [isEditing, setIsEditing] = useState(false);
 
   const handleDoubleClick = () => {
@@ -30,7 +25,6 @@ export default function TodoItem({
       className={`${todo.completed ? "completed" : ""} ${
         isEditing ? "editing" : ""
       }`}
-      onDoubleClick={handleDoubleClick}
     >
       <div className="view">
         <input
@@ -39,7 +33,7 @@ export default function TodoItem({
           defaultChecked={todo.completed}
           onChange={() => toggleCompleted(todo.id)}
         />
-        <label>{todo.title}</label>
+        <label onDoubleClick={handleDoubleClick}>{todo.title}</label>
         <button
           className="destroy"
           onClick={() => deleteTodo(todo.id)}

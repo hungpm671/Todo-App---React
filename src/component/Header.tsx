@@ -1,8 +1,9 @@
-export type HeaderProps = {
-  addTodo: (title: string) => void;
-};
+import { useContext } from "react";
+import AppContext from "../contexts/AppContext";
 
-export default function Header({ addTodo }: HeaderProps) {
+export default function Header() {
+  const { addTodo } = useContext(AppContext);
+
   return (
     <>
       <header className="header">
@@ -15,6 +16,7 @@ export default function Header({ addTodo }: HeaderProps) {
           onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
             if (e.key === "Enter" || e.keyCode === 13) {
               addTodo((e.target as HTMLInputElement).value);
+              (e.target as HTMLInputElement).value = "";
             }
           }}
         />

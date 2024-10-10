@@ -1,20 +1,10 @@
-import TodoItem, { TodoItemObject } from "./TodoItem";
+import { useContext } from "react";
+import TodoItem from "./TodoItem";
+import AppContext from "../contexts/AppContext";
 
-export type TodosProps = {
-  todos: TodoItemObject[];
-  filter: string;
-  toggleCompleted: (id: number) => void;
-  deleteTodo: (id: number) => void;
-  editTodo: (id: number, title: string) => void;
-};
+export default function Main() {
+  const { todos, filter } = useContext(AppContext);
 
-export default function Main({
-  todos,
-  filter,
-  toggleCompleted,
-  deleteTodo,
-  editTodo,
-}: TodosProps) {
   const updatedTodos = todos.filter((todo) =>
     filter === "all"
       ? true
@@ -30,13 +20,7 @@ export default function Main({
         <label htmlFor="toggle-all">Mark all as complete</label>
         <ul className="todo-list">
           {updatedTodos.map((todo) => (
-            <TodoItem
-              key={todo.id}
-              todo={todo}
-              toggleCompleted={toggleCompleted}
-              deleteTodo={deleteTodo}
-              editTodo={editTodo}
-            />
+            <TodoItem key={todo.id} todo={todo} />
           ))}
         </ul>
       </section>
