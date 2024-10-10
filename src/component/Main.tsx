@@ -3,7 +3,7 @@ import TodoItem from "./TodoItem";
 import AppContext from "../contexts/AppContext";
 
 export default function Main() {
-  const { todos, filter } = useContext(AppContext);
+  const { todos, filter, toggleAllCompleted } = useContext(AppContext);
 
   const updatedTodos = todos.filter((todo) =>
     filter === "all"
@@ -16,7 +16,12 @@ export default function Main() {
   return (
     <>
       <section className="main">
-        <input id="toggle-all" className="toggle-all" type="checkbox" />
+        <input
+          id="toggle-all"
+          className="toggle-all"
+          type="checkbox"
+          onChange={(e) => toggleAllCompleted(e.target.checked)}
+        />
         <label htmlFor="toggle-all">Mark all as complete</label>
         <ul className="todo-list">
           {updatedTodos.map((todo) => (

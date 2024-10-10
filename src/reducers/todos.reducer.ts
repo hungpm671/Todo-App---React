@@ -1,6 +1,7 @@
 import { TodoItemObject } from "../component/TodoItem";
+import { ActionType } from "../contexts/AppContext";
 
-const todosReducer = (currentTodos: TodoItemObject[], action) => {
+const todosReducer = (currentTodos: TodoItemObject[], action: ActionType) => {
   switch (action.type) {
     case "ADD_TODO":
       return [
@@ -24,18 +25,12 @@ const todosReducer = (currentTodos: TodoItemObject[], action) => {
     case "TOGGLE_ALL_COMPLETED":
       return currentTodos.map((todo) => ({
         ...todo,
-        completed: action.payload,
+        completed: action.payload.completed,
       }));
     case "CLEAR_COMPLETED_TODOS":
       return currentTodos.filter((todo) => !todo.completed);
-    // case "SELECT_ALL_TODOS":
-    //   return currentTodos.map((todo) => ({...todo, completed: action.payload }));
-    // case "SELECT_ACTIVE_TODOS":
-    //   return currentTodos.filter((todo) =>!todo.completed);
-    // case "SELECT_COMPLETED_TODOS":
-    //   return currentTodos.filter((todo) => todo.completed);
     default: {
-      throw new Error(`Unhandled action type: ${action.type}`);
+      throw new Error(`Unhandled action type`);
     }
   }
 };

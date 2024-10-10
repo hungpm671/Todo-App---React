@@ -5,7 +5,6 @@ import "./assets/css/index.css";
 import Footer from "./component/Footer";
 import Header from "./component/Header";
 import Main from "./component/Main";
-import { TodoItemObject } from "./component/TodoItem";
 import AppContext from "./contexts/AppContext";
 import todosReducer from "./reducers/todos.reducer";
 
@@ -33,7 +32,6 @@ function App() {
     },
   ];
 
-  // const [todos, setTodos] = useState<TodoItemObject[]>(data);
   const [todos, dispatch] = useReducer(todosReducer, data);
   const [filter, setFilter] = useState<string>("all");
 
@@ -44,32 +42,23 @@ function App() {
   const toggleAllCompleted = (completed: boolean) => {
     // const updatedTodos = todos.map((todo) => ({ ...todo, completed }));
     // setTodos(updatedTodos);
-    dispatch({ type: "TOGGLE_ALL_COMPLETED", payload: completed });
+    dispatch({ type: "TOGGLE_ALL_COMPLETED", payload: {completed} });
+    console.log(todos);
   };
 
   const addTodo = (title: string) => {
-    // const newTodo = { id: Date.now(), title, completed: false };
-    // setTodos([...todos, newTodo]);
     dispatch({ type: "ADD_TODO", payload: { title } });
   };
 
   const deleteTodo = (id: number) => {
-    // const updatedTodos = todos.filter((todo) => todo.id !== id);
-    // setTodos(updatedTodos);
-    dispatch({ type: "DELETE_TODO", payload: id });
+    dispatch({ type: "DELETE_TODO", payload: { id } });
   };
 
   const editTodo = (id: number, title: string) => {
-    // const updatedTodos = todos.map((todo) =>
-    //   todo.id === id ? { ...todo, title } : todo
-    // );
-    // setTodos(updatedTodos);
     dispatch({ type: "EDIT_TODO", payload: { id, title } });
   };
 
   const clearCompletedTodos = () => {
-    // const updatedTodos = todos.filter((todo) => !todo.completed);
-    // setTodos(updatedTodos);
     dispatch({ type: "CLEAR_COMPLETED_TODOS" });
   };
 

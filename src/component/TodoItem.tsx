@@ -30,7 +30,7 @@ export default function TodoItem({ todo }: TodoItemProps) {
         <input
           className="toggle"
           type="checkbox"
-          defaultChecked={todo.completed}
+          checked={todo.completed}
           onChange={() => toggleCompleted(todo.id)}
         />
         <label onDoubleClick={handleDoubleClick}>{todo.title}</label>
@@ -39,16 +39,22 @@ export default function TodoItem({ todo }: TodoItemProps) {
           onClick={() => deleteTodo(todo.id)}
         ></button>
       </div>
-      <input
-        className="edit"
-        defaultValue="Create a TodoMVC template"
-        onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-          if (e.key === "Enter" || e.keyCode === 13) {
-            setIsEditing(false);
-            editTodo(todo.id, (e.target as HTMLInputElement).value);
-          }
-        }}
-      />
+      <div>
+        <input
+          className="edit"
+          defaultValue={todo.title}
+          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === "Enter" || e.keyCode === 13) {
+              setIsEditing(false);
+              editTodo(todo.id, (e.target as HTMLInputElement).value);
+            }
+          }}
+        />
+        <button
+          className="destroy"
+          onClick={() => setIsEditing(false)}
+        ></button>
+      </div>
     </li>
   );
 }
