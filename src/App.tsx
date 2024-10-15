@@ -42,7 +42,7 @@ function App() {
   const toggleAllCompleted = (completed: boolean) => {
     // const updatedTodos = todos.map((todo) => ({ ...todo, completed }));
     // setTodos(updatedTodos);
-    dispatch({ type: "TOGGLE_ALL_COMPLETED", payload: {completed} });
+    dispatch({ type: "TOGGLE_ALL_COMPLETED", payload: { completed } });
     console.log(todos);
   };
 

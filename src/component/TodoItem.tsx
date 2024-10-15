@@ -51,7 +51,8 @@ export default function TodoItem({ todo }: TodoItemProps) {
           }}
         />
         <button
-          className="destroy"
+          className={isEditing ? "destroy" : ""}
+          style={{ display: isEditing ? "block" : "none" }}
           onClick={() => setIsEditing(false)}
         ></button>
       </div>
